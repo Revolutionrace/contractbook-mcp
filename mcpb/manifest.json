@@ -7,14 +7,14 @@
   "description": "Search, read and draft Contractbook documents from Claude.",
   "long_description": "Connects Claude to your Contractbook account. Claude can list and search documents, read their full text, browse templates and create draft documents from a template. Drafts are never sent for signature.",
   "author": {
-    "name": "RevolutionRace",
-    "url": "https://www.revolutionrace.com"
+    "name": "Contractbook",
+    "url": "https://contractbook.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Revolutionrace/contractbook-mcp"
+    "url": "https://github.com/Contractbook/mcp"
   },
-  "homepage": "https://github.com/Revolutionrace/contractbook-mcp",
+  "homepage": "https://github.com/Contractbook/mcp",
   "license": "MIT",
   "keywords": ["contractbook", "contracts", "documents"],
   "server": {

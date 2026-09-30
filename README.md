@@ -18,7 +18,7 @@ pnpm run build
 ## Install in Claude Desktop (no terminal needed)
 
 1. Download `contractbook-vX.Y.Z.mcpb` from the latest
-   [GitHub release](https://github.com/Revolutionrace/contractbook-mcp/releases).
+   [GitHub release](https://github.com/Contractbook/mcp/releases).
 2. Double-click the file. Claude Desktop opens an install dialog.
 3. Paste your Contractbook API key when asked and click **Install**.
 
