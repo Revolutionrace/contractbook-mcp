@@ -25,7 +25,7 @@ execFileSync(npx, ["-y", MCPB_CLI, "pack", "build/mcpb", "build/contractbook.mcp
   stdio: "inherit",
 });
 
-// Asks the bundled server for its tools, so the manifest always matches the code.
+// Reads the tool list from the bundled server so the manifest can't drift from the code.
 async function listTools() {
   const server = spawn(process.execPath, [SERVER], {
     env: { ...process.env, CONTRACTBOOK_API_KEY: "unused-while-packing" },

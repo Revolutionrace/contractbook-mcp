@@ -2,9 +2,9 @@ import { defineConfig } from "vite";
 
 import pkg from "./package.json" with { type: "json" };
 
-// `vite build --mode mcpb` produces a fully self-contained server for the
-// Claude Desktop Extension: dependencies are bundled in and the syntax targets
-// the Node runtime Claude Desktop ships, since users have no node_modules.
+// `vite build --mode mcpb` builds the server for the Claude Desktop Extension.
+// Users have no node_modules, so dependencies go into the bundle, and the
+// output targets Node 20 to run on the Node that ships with Claude Desktop.
 export default defineConfig(({ mode }) => {
   const mcpb = mode === "mcpb";
 

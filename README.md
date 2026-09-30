@@ -15,18 +15,19 @@ pnpm install
 pnpm run build
 ```
 
-## Install in Claude Desktop (no terminal needed)
+## Install in Claude Desktop
 
 1. Download `contractbook-vX.Y.Z.mcpb` from the latest
    [GitHub release](https://github.com/Contractbook/mcp/releases).
 2. Double-click the file. Claude Desktop opens an install dialog.
-3. Paste your Contractbook API key when asked and click **Install**.
+3. Paste your Contractbook API key and click **Install**.
 
-The key is stored in the operating system's keychain. Claude Desktop runs the
-extension with its built-in Node.js, so nothing else needs to be installed.
+Claude Desktop keeps the key in your operating system's keychain and runs the
+extension on its own copy of Node.js, so you don't have to install Node or open
+a terminal.
 
-Team and Enterprise admins can distribute the same file to the whole
-organization from Claude Desktop's extension settings.
+On Team and Enterprise plans, admins can roll the same file out to everyone
+from Claude Desktop's extension settings.
 
 ### Building the extension
 
@@ -34,11 +35,14 @@ organization from Claude Desktop's extension settings.
 pnpm build:mcpb
 ```
 
-Bundles the server and its dependencies into `build/mcpb/server/index.mjs`,
-copies `mcpb/manifest.json`, fills in the tool list by asking the bundled
-server for it, and packs `build/contractbook.mcpb`. The build fails if the
-manifest `version` differs from `package.json`, so bump both together. The
-release workflow attaches the file to each GitHub release.
+The script bundles the server and its dependencies into
+`build/mcpb/server/index.mjs`. It then starts that server once to read its tool
+list, writes the list into a copy of `mcpb/manifest.json`, and packs everything
+into `build/contractbook.mcpb`.
+
+The build stops if the `version` in `mcpb/manifest.json` doesn't match
+`package.json`, so bump both in the same commit. The release workflow uploads
+the `.mcpb` file to each GitHub release.
 
 ## Setup for Claude Desktop via npx
 
