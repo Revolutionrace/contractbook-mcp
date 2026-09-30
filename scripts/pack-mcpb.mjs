@@ -1,11 +1,13 @@
-// Assembles build/mcpb (manifest + bundled server) and packs it into
-// build/contractbook.mcpb. Run via `pnpm build:mcpb`, after the vite build.
+// Packs the normal `pnpm build` output into build/contractbook.mcpb, together
+// with the production dependencies, since users have no node_modules.
+// Run via `pnpm build:mcpb`.
 import { execFileSync, spawn } from "node:child_process";
-import { readFileSync, writeFileSync } from "node:fs";
+import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createInterface } from "node:readline";
 
 const MCPB_CLI = "@anthropic-ai/mcpb@2.1.2";
-const SERVER = "build/mcpb/server/index.mjs";
+const BUNDLE_DIR = "build/mcpb";
+const SERVER = `${BUNDLE_DIR}/dist/index.js`;
 
 const pkg = JSON.parse(readFileSync("package.json", "utf8"));
 const manifest = JSON.parse(readFileSync("mcpb/manifest.json", "utf8"));
@@ -17,11 +19,32 @@ if (manifest.version !== pkg.version) {
   process.exit(1);
 }
 
-manifest.tools = await listTools();
-writeFileSync("build/mcpb/manifest.json", `${JSON.stringify(manifest, null, 2)}\n`);
-
+const pnpm = process.platform === "win32" ? "pnpm.cmd" : "pnpm";
 const npx = process.platform === "win32" ? "npx.cmd" : "npx";
-execFileSync(npx, ["-y", MCPB_CLI, "pack", "build/mcpb", "build/contractbook.mcpb"], {
+
+// Copies dist/index.js and installs only the production dependencies from the
+// lockfile, in its own directory so the project's node_modules is untouched.
+// A hoisted layout avoids symlinks, which do not survive the zip everywhere.
+const INSTALL_FILES = ["package.json", "pnpm-lock.yaml", "pnpm-workspace.yaml"];
+rmSync(BUNDLE_DIR, { recursive: true, force: true });
+mkdirSync(`${BUNDLE_DIR}/dist`, { recursive: true });
+cpSync("dist/index.js", `${BUNDLE_DIR}/dist/index.js`);
+for (const file of INSTALL_FILES) {
+  cpSync(file, `${BUNDLE_DIR}/${file}`);
+}
+execFileSync(
+  pnpm,
+  ["install", "--prod", "--frozen-lockfile", "--ignore-scripts", "--config.node-linker=hoisted"],
+  { cwd: BUNDLE_DIR, stdio: "inherit" },
+);
+// package.json stays: it marks dist/index.js as an ES module.
+rmSync(`${BUNDLE_DIR}/pnpm-lock.yaml`);
+rmSync(`${BUNDLE_DIR}/pnpm-workspace.yaml`);
+
+manifest.tools = await listTools();
+writeFileSync(`${BUNDLE_DIR}/manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`);
+
+execFileSync(npx, ["-y", MCPB_CLI, "pack", BUNDLE_DIR, "build/contractbook.mcpb"], {
   stdio: "inherit",
 });
 

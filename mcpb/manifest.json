@@ -19,10 +19,10 @@
   "keywords": ["contractbook", "contracts", "documents"],
   "server": {
     "type": "node",
-    "entry_point": "server/index.mjs",
+    "entry_point": "dist/index.js",
     "mcp_config": {
       "command": "node",
-      "args": ["${__dirname}/server/index.mjs"],
+      "args": ["${__dirname}/dist/index.js"],
       "env": {
         "CONTRACTBOOK_API_KEY": "${user_config.api_key}"
       }

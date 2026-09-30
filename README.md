@@ -35,10 +35,10 @@ from Claude Desktop's extension settings.
 pnpm build:mcpb
 ```
 
-The script bundles the server and its dependencies into
-`build/mcpb/server/index.mjs`. It then starts that server once to read its tool
-list, writes the list into a copy of `mcpb/manifest.json`, and packs everything
-into `build/contractbook.mcpb`.
+The script runs the normal `pnpm build`, then copies `dist/index.js` and the
+production dependencies into `build/mcpb`. It starts the server once to read
+its tool list, writes the list into a copy of `mcpb/manifest.json`, and packs
+everything into `build/contractbook.mcpb`.
 
 The build stops if the `version` in `mcpb/manifest.json` doesn't match
 `package.json`, so bump both in the same commit. The release workflow uploads
