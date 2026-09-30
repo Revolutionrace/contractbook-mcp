@@ -18,7 +18,7 @@ pnpm run build
 ## Install in Claude Desktop (no terminal needed)
 
 1. Download `contractbook-vX.Y.Z.mcpb` from the latest
-   [GitHub release](https://github.com/Contractbook/mcp/releases).
+   [GitHub release](https://github.com/Revolutionrace/contractbook-mcp/releases).
 2. Double-click the file. Claude Desktop opens an install dialog.
 3. Paste your Contractbook API key when asked and click **Install**.
 
@@ -35,9 +35,10 @@ pnpm build:mcpb
 ```
 
 Bundles the server and its dependencies into `build/mcpb/server/index.mjs`,
-copies `mcpb/manifest.json` with the version from `package.json`, and packs
-`build/contractbook.mcpb`. The release workflow attaches it to each GitHub
-release.
+copies `mcpb/manifest.json`, fills in the tool list by asking the bundled
+server for it, and packs `build/contractbook.mcpb`. The build fails if the
+manifest `version` differs from `package.json`, so bump both together. The
+release workflow attaches the file to each GitHub release.
 
 ## Setup for Claude Desktop via npx
 

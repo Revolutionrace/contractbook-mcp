@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Contractbook/mcp.git"
+    "url": "git+https://github.com/Revolutionrace/contractbook-mcp.git"
   },
   "bin": {
     "contractbook-mcp": "dist/index.js"

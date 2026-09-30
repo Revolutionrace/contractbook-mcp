@@ -3,18 +3,18 @@
   "manifest_version": "0.4",
   "name": "contractbook",
   "display_name": "Contractbook",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Search, read and draft Contractbook documents from Claude.",
   "long_description": "Connects Claude to your Contractbook account. Claude can list and search documents, read their full text, browse templates and create draft documents from a template. Drafts are never sent for signature.",
   "author": {
-    "name": "Contractbook",
-    "url": "https://contractbook.com"
+    "name": "RevolutionRace",
+    "url": "https://www.revolutionrace.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Contractbook/mcp"
+    "url": "https://github.com/Revolutionrace/contractbook-mcp"
   },
-  "homepage": "https://contractbook.com",
+  "homepage": "https://github.com/Revolutionrace/contractbook-mcp",
   "license": "MIT",
   "keywords": ["contractbook", "contracts", "documents"],
   "server": {
@@ -28,29 +28,6 @@
       }
     }
   },
-  "tools": [
-    {
-      "name": "list_documents",
-      "description": "Lists documents with filtering, sorting and pagination"
-    },
-    {
-      "name": "search_documents",
-      "description": "Full-text search across document content and attachments"
-    },
-    { "name": "get_document_content", "description": "Returns a document's full text as markdown" },
-    {
-      "name": "list_templates",
-      "description": "Lists the contract templates available to the user"
-    },
-    {
-      "name": "get_template",
-      "description": "Returns a template's details, including its data fields"
-    },
-    {
-      "name": "create_document_from_template",
-      "description": "Creates a draft document from a template"
-    }
-  ],
   "compatibility": {
     "platforms": ["darwin", "win32", "linux"],
     "runtimes": {
@@ -61,7 +38,7 @@
     "api_key": {
       "type": "string",
       "title": "Contractbook API key",
-      "description": "Create one in Contractbook under Settings → API keys.",
+      "description": "Your Contractbook API key. It is stored in your operating system's keychain.",
       "sensitive": true,
       "required": true
     }
