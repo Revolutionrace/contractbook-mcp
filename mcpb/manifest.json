@@ -1,0 +1,69 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/mcpb/main/schemas/mcpb-manifest-v0.4.schema.json",
+  "manifest_version": "0.4",
+  "name": "contractbook",
+  "display_name": "Contractbook",
+  "version": "0.0.0",
+  "description": "Search, read and draft Contractbook documents from Claude.",
+  "long_description": "Connects Claude to your Contractbook account. Claude can list and search documents, read their full text, browse templates and create draft documents from a template. Drafts are never sent for signature.",
+  "author": {
+    "name": "Contractbook",
+    "url": "https://contractbook.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Contractbook/mcp"
+  },
+  "homepage": "https://contractbook.com",
+  "license": "MIT",
+  "keywords": ["contractbook", "contracts", "documents"],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.mjs"],
+      "env": {
+        "CONTRACTBOOK_API_KEY": "${user_config.api_key}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "list_documents",
+      "description": "Lists documents with filtering, sorting and pagination"
+    },
+    {
+      "name": "search_documents",
+      "description": "Full-text search across document content and attachments"
+    },
+    { "name": "get_document_content", "description": "Returns a document's full text as markdown" },
+    {
+      "name": "list_templates",
+      "description": "Lists the contract templates available to the user"
+    },
+    {
+      "name": "get_template",
+      "description": "Returns a template's details, including its data fields"
+    },
+    {
+      "name": "create_document_from_template",
+      "description": "Creates a draft document from a template"
+    }
+  ],
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=20.0.0"
+    }
+  },
+  "user_config": {
+    "api_key": {
+      "type": "string",
+      "title": "Contractbook API key",
+      "description": "Create one in Contractbook under Settings → API keys.",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}

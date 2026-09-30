@@ -15,7 +15,31 @@ pnpm install
 pnpm run build
 ```
 
-## Setup for Claude Desktop
+## Install in Claude Desktop (no terminal needed)
+
+1. Download `contractbook-vX.Y.Z.mcpb` from the latest
+   [GitHub release](https://github.com/Contractbook/mcp/releases).
+2. Double-click the file. Claude Desktop opens an install dialog.
+3. Paste your Contractbook API key when asked and click **Install**.
+
+The key is stored in the operating system's keychain. Claude Desktop runs the
+extension with its built-in Node.js, so nothing else needs to be installed.
+
+Team and Enterprise admins can distribute the same file to the whole
+organization from Claude Desktop's extension settings.
+
+### Building the extension
+
+```sh
+pnpm build:mcpb
+```
+
+Bundles the server and its dependencies into `build/mcpb/server/index.mjs`,
+copies `mcpb/manifest.json` with the version from `package.json`, and packs
+`build/contractbook.mcpb`. The release workflow attaches it to each GitHub
+release.
+
+## Setup for Claude Desktop via npx
 
 ```sh
 npx @contractbook/mcp setup
