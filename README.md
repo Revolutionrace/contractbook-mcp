@@ -23,8 +23,8 @@ pnpm run build
 3. Paste your Contractbook API key and click **Install**.
 
 Claude Desktop keeps the key in your operating system's keychain and runs the
-extension on its own copy of Node.js, so you don't have to install Node or open
-a terminal.
+extension with Node.js. The extension needs Node.js >= 24, the same as the
+rest of this project (see Prerequisites).
 
 On Team and Enterprise plans, admins can roll the same file out to everyone
 from Claude Desktop's extension settings.
