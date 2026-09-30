@@ -36,8 +36,9 @@ pnpm build:mcpb
 ```
 
 The script runs the normal `pnpm build`, then copies `dist/index.js` and the
-production dependencies into `build/mcpb`. It adds `mcpb/manifest.json` with
-the version from `package.json` and packs everything into
+production dependencies into `build/mcpb`. It adds `mcpb/manifest.json`, fills
+in `version`, `license`, `keywords`, `repository`, `homepage` and the Node.js
+requirement (`engines.node`) from `package.json`, and packs everything into
 `build/contractbook.mcpb`. The release workflow uploads the `.mcpb` file to
 each GitHub release.
 

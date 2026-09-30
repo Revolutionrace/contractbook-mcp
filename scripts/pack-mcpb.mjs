@@ -29,8 +29,18 @@ execFileSync(
 rmSync(`${BUNDLE_DIR}/pnpm-lock.yaml`);
 rmSync(`${BUNDLE_DIR}/pnpm-workspace.yaml`);
 
-const { version } = JSON.parse(readFileSync("package.json", "utf8"));
-const manifest = { ...JSON.parse(readFileSync("mcpb/manifest.json", "utf8")), version };
+// Fields that package.json already has are taken from it, not repeated.
+const pkg = JSON.parse(readFileSync("package.json", "utf8"));
+const manifest = JSON.parse(readFileSync("mcpb/manifest.json", "utf8"));
+const repositoryUrl = pkg.repository.url.replace(/^git\+/, "").replace(/\.git$/, "");
+Object.assign(manifest, {
+  version: pkg.version,
+  license: pkg.license,
+  keywords: pkg.keywords,
+  repository: { type: "git", url: repositoryUrl },
+  homepage: repositoryUrl,
+});
+manifest.compatibility.runtimes = { node: pkg.engines.node };
 writeFileSync(`${BUNDLE_DIR}/manifest.json`, `${JSON.stringify(manifest, null, 2)}\n`);
 
 execFileSync(npx, ["-y", MCPB_CLI, "pack", BUNDLE_DIR, "build/contractbook.mcpb"], {

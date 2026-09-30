@@ -9,13 +9,6 @@
     "name": "Contractbook",
     "url": "https://contractbook.com"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Contractbook/mcp"
-  },
-  "homepage": "https://github.com/Contractbook/mcp",
-  "license": "MIT",
-  "keywords": ["contractbook", "contracts", "documents"],
   "server": {
     "type": "node",
     "entry_point": "dist/index.js",
@@ -29,10 +22,7 @@
   },
   "tools_generated": true,
   "compatibility": {
-    "platforms": ["darwin", "win32", "linux"],
-    "runtimes": {
-      "node": ">=24.0.0"
-    }
+    "platforms": ["darwin", "win32", "linux"]
   },
   "user_config": {
     "api_key": {
