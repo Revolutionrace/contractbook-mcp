@@ -36,13 +36,13 @@ pnpm build:mcpb
 ```
 
 The script runs the normal `pnpm build`, then copies `dist/index.js` and the
-production dependencies into `build/mcpb`. It starts the server once to read
-its tool list, writes the list into a copy of `mcpb/manifest.json`, and packs
-everything into `build/contractbook.mcpb`.
+production dependencies into `build/mcpb`. It adds `mcpb/manifest.json` with
+the version from `package.json` and packs everything into
+`build/contractbook.mcpb`. The release workflow uploads the `.mcpb` file to
+each GitHub release.
 
-The build stops if the `version` in `mcpb/manifest.json` doesn't match
-`package.json`, so bump both in the same commit. The release workflow uploads
-the `.mcpb` file to each GitHub release.
+The manifest has no tool list. Claude Desktop asks the server for its tools
+after install (`tools_generated`).
 
 ## Setup for Claude Desktop via npx
 
